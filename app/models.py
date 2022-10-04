@@ -30,8 +30,9 @@ class pemesanan(models.Model):
 
 class detaillayanan(models.Model):
     iddetaillayanan = models.AutoField(primary_key=True)
-    idpemesanan = models.ForeignKey(pemesanan,on_delete=models.CASCADE)
     idlayanan = models.ForeignKey(layanan,on_delete=models.CASCADE)
+    idpemesanan = models.ForeignKey(pemesanan,on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return str(self.idpemesanan)
