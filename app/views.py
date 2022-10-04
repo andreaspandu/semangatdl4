@@ -42,7 +42,10 @@ def hapus(request, id):
     pemesananobj = models.pemesanan.objects.get(idpemesanan = id)
     pemesananobj.delete()   
     return redirect('index') 
-
+def hapuspaket(request, id):
+    paketlayananobj = models.paketlayanan.objects.get(idpaketlayanan = id)
+    paketlayananobj.delete()
+    return redirect('bikinpaket')
 def hapuslayanan(request, id):
     layananobj = models.layanan.objects.get(idlayanan = id)
     layananobj.delete()   
@@ -54,6 +57,33 @@ def index(request):
     return render (request, 'pemesanan.html', {
         'allpemesananobj' : allpemesananobj
     })
+
+def indexpaket(request):
+    allpaketlayananobj = models.paketlayanan.objects.all()
+
+    return render(request, 'bikinpaket.html', {
+        'allpaketlayananobj' : allpaketlayananobj
+    })
+
+def perbaruipaket(request, id):
+    paketlayananobj = models.paketlayanan.objects.get(idpaketlayanan=id)
+    paket_obj = models.paketlayanan.objects.all()
+    if request.method == "GET":
+        return render(request, 'perbaruipaket.html', {
+            "allpaketlayananobj" : paketlayananobj,
+            'idpaketlayanan' : paket_obj
+        })
+    else:
+        # allpemesananobj.idpemesanan = request.POST['idpemesanan']
+        # idpaketlayanan = request.POST['idpaketlayanan']
+        # getpaketbaru = models.paketlayanan.objects.get(idpaketlayanan= idpaketlayanan)
+        # pemesananobj.idpaketpelanggan = getpaketbaru
+        paketlayananobj.idpaketlayanan = request.POST['idpaketlayanan']
+        paketlayananobj.jenispaket = request.POST['jenispaket']
+        paketlayananobj.keteranganpaket = request.POST['keteranganpaket']
+        paketlayananobj.harga = request.POST['harga']
+        paketlayananobj.save()
+        return redirect ('bikinpaket')
 
 def createdata (request):
     paket = models.paketlayanan.objects.all()
@@ -105,9 +135,9 @@ def bikinlayanan(request):
         ).save()
         return redirect ('index')
 
-def bikinpaket(request):
-    paket = models.paketlayanan.objects.all()
-    if request.method == "GET":
-        return render (request, 'bikinpaket.html',{
-            'pakettersedia' : paket,
-        })
+# def bikinpaket(request):
+#     paket = models.paketlayanan.objects.all()
+#     if request.method == "GET":
+#         return render (request, 'bikinpaket.html',{
+#             'pakettersedia' : paket,
+#         })
