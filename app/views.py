@@ -38,8 +38,8 @@ def index(request):
     })
 
 def createdata (request):
+    paket = models.paketlayanan.objects.all()
     if request.method == "GET":
-        paket = models.paketlayanan.objects.all()
         return render (request, 'createdata.html',{
             'pakettersedia' : paket
 
@@ -47,6 +47,7 @@ def createdata (request):
     else:
         # idpemesanan = request.POST['idpemesanan']
         idpaketpelanggan = request.POST['idpaketpelanggan']
+        getpaketbaru = models.paketlayanan.objects.get(idpaketlayanan = idpaketpelanggan) #harus di get dulu baru bisa. karena dari html pas ngepost itu hasilnya cuma string. misal kalian di html pilih paket 1. itu datanya yang kekirim cuma "1". jadi harus diget dulu, jadiin si "1" itu sebagai parameter.
         nama = request.POST['nama']
         platnomor = request.POST ['platnomor']
         tanggalpesan = request.POST ['tanggalpesan']
@@ -54,7 +55,7 @@ def createdata (request):
 
         newpemesanan = models.pemesanan(
             # idpemesanan = idpemesanan,
-            idpaketlayanan = idpaketpelanggan,
+            idpaketpelanggan = getpaketbaru, #harusnya idpaketpelanggan, bukan idpaketlayanan. soalnya di models itu id paket pelanggan. Kalau namain variabel gausa ribet biar ga salah
             nama = nama,
             platnomor = platnomor,
             tanggalpesan = tanggalpesan

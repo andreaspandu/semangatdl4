@@ -14,7 +14,8 @@
             <tr>
                 <th>ID Paket Pelanggan</th>
                 <td>
-                    <select name="idpaketlayanan" id="" >
+                    <select name="idpaketpelanggan" id="" >
+                        <!-- nama yang ada di name harus sama kaya di views pas request post-->
                         {% for item in pakettersedia %}
                         <option value="{{item.idpaketlayanan}}">{{item}}</option>
                         {% endfor %}
