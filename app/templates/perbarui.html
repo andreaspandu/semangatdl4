@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perbarui Data</title>
+</head>
+<body>
+    <h1>Tambah Pemesanan</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>ID Paket Pelanggan</th>
+                <td>
+                    <select name="idpaketpelanggan" id="" >
+                        {% for item in pakettersedia %}
+                        <option value="{{allpemesananobj.idpaketlayanan}}.item">{{item}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Nama</th>
+                <td>
+                    <input type="text" value="{{allpemesananobj.nama}}" name="nama">
+                </td>
+            </tr>
+            <tr>
+                <th>Plat Nomor</th>
+                <td>
+                    <input type="text" value="{{allpemesananobj.platnomor}}" name="platnomor">
+                </td>
+            </tr>
+            <tr>
+                <th>Tanggal Pesan</th>
+                <td>
+                    <input type="date" value="{{allpemesananobj.tanggalpesan}}" name="tanggalpesan"> 
+                </td>
+            </tr>
+        </table>
+        <button type="submit" >Update</button>
+    </form>
+</body>
+</html>
