@@ -7,13 +7,14 @@ def home(request):
     return render(request, 'home.html')
 
 def perbarui(request, id):
+    # pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
     pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
     if request.method == "GET":
         return render(request, 'perbarui.html', {
             "allpemesananobj" : pemesananobj
         })
     else:
-        pemesananobj.idpemesanan = request.POST['idpemesanan']
+        # allpemesananobj.idpemesanan = request.POST['idpemesanan']
         pemesananobj.idpaketpelanggan = request.POST['idpaketpelanggan']
         pemesananobj.nama = request.POST['nama']
         pemesananobj.platnomor = request.POST['platnomor']
@@ -28,13 +29,9 @@ def hapus(request, id):
 
 def index(request):
     allpemesananobj = models.pemesanan.objects.all()
-    getpemesananobj = models.pemesanan.objects.get(idpemesanan = 1)
-    filterpemesananobj = models.pemesanan.objects.filter(tanggalpesan = "2022-01-01")
    
     return render (request, 'pemesanan.html', {
-        'allpemesananobj' : allpemesananobj,
-        'getpemesananobj' : getpemesananobj,
-        'filterpemesananobj' : filterpemesananobj
+        'allpemesananobj' : allpemesananobj
     })
 
 def createdata (request):
