@@ -8,7 +8,7 @@ def home(request):
 
 def perbarui(request, id):
     # pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
-    pemesananobj = models.pemesanan.objects.get(idpaketcpelanggan=id)
+    pemesananobj = models.pemesanan.objects.get(idpemesanan=id) #ini harusnya id pemesanan bukan paket pelanggan. terus itu page pas update, ga keluar pilihan paketnya. kamu belum .all() paket pelanggannya
     if request.method == "GET":
         return render(request, 'perbarui.html', {
             "allpemesananobj" : pemesananobj
@@ -29,19 +29,9 @@ def hapus(request, id):
 
 def index(request):
     allpemesananobj = models.pemesanan.objects.all()
-<<<<<<< HEAD
-    # getpemesananobj = models.pemesanan.objects.get(idpemesanan = 1)
-    filterpemesananobj = models.pemesanan.objects.filter(tanggalpesan = "2022-01-01")
-   
-    return render (request, 'pemesanan.html', {
-        'allpemesananobj' : allpemesananobj,
-        # 'getpemesananobj' : getpemesananobj,
-        # 'filterpemesananobj' : filterpemesananobj
-=======
    
     return render (request, 'pemesanan.html', {
         'allpemesananobj' : allpemesananobj
->>>>>>> 908ba0ec737cb92d74907e6d7a8493484bd79c11
     })
 
 def createdata (request):
