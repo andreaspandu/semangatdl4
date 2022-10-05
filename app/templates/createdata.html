@@ -22,6 +22,16 @@
                 </td>
             </tr>
             <tr>
+                <th>ID Layanan</th>
+                <td>
+                    <select name="idlayanan" id="">
+                        {% for item in layanantersedia %}
+                        <option value="{{item.idlayanan}}">{{item}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <th>Nama</th>
                 <td>
                     <input type="text" name="nama">
