@@ -28,13 +28,13 @@ def hapus(request, id):
 
 def index(request):
     allpemesananobj = models.pemesanan.objects.all()
-    getpemesananobj = models.pemesanan.objects.get(idpemesanan = 1)
+    # getpemesananobj = models.pemesanan.objects.get(idpemesanan = 1)
     filterpemesananobj = models.pemesanan.objects.filter(tanggalpesan = "2022-01-01")
    
     return render (request, 'pemesanan.html', {
         'allpemesananobj' : allpemesananobj,
-        'getpemesananobj' : getpemesananobj,
-        'filterpemesananobj' : filterpemesananobj
+        # 'getpemesananobj' : getpemesananobj,
+        # 'filterpemesananobj' : filterpemesananobj
     })
 
 def createdata (request):
