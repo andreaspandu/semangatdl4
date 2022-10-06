@@ -16,21 +16,32 @@
         <th>Nama</th>
         <th>Plat Nomor</th>
         <th>Tanggal Pesan</th>
+        <th>Detail Layanan</th>
         <th>Action</th>
     </tr>
-    {%for item in allpemesananobj %}
+    {% for item in pemesanan %}
     <tr>
-        <td>{{ item.idpemesanan }}</td>
-        <td>{{ item.idpaketpelanggan }}</td>
-        <td>{{ item.idlayanan }}</td>
-        <td>{{ item.nama }}</td>
-        <td>{{ item.platnomor }}</td>
-        <td>{{ item.tanggalpesan }}</td>
+        <td>{{ item.0.idpemesanan }}</td>
+        <td>{{ item.0.idpaketpelanggan.jenispaket }}</td>
+        <td>{{ item.0.idlayanan.jenislayanan }}</td>
+        <td>{{ item.0.nama }}</td>
+        <td>{{ item.0.platnomor }}</td>
+        <td>{{ item.0.tanggalpesan }}</td>
         <td>
-            <a href="{% url 'perbarui' item.idpemesanan %}">
+            {% for x in item.1 %}
+            <p>
+                {{x.idlayanan.jenislayanan}}
+            </p>
+            {% endfor %}
+        </td>
+        <td>
+            <a href="{% url 'perbarui' item.0.idpemesanan %}">
                 <button>Update</button>
             </a>
-            <a href="{% url 'hapus' item.idpemesanan %}">
+            <a href="{% url 'detaillayanan' item.0.idpemesanan %}">
+                <button>Detail Layanan</button>
+            </a>
+            <a href="{% url 'hapus' item.0.idpemesanan %}">
                 <button>Delete</button>
             </a>
             

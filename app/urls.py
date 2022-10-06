@@ -13,5 +13,7 @@ urlpatterns = [
     path('hapus/<str:id>', views.hapus, name="hapus"),
     path('perbarui/<str:id>', views.perbarui, name ='perbarui'),
     path('perbaruipaket/<str:id>', views.perbaruipaket, name='perbaruipaket'),
-    path('hapuspaket/<str:id>', views.hapuspaket, name='hapuspaket')
-]   
+    path('hapuspaket/<str:id>', views.hapuspaket, name='hapuspaket'),
+    path('detaillayanan<str:id>', views.detaillayanan, name='detaillayanan'),
+    path('detaillayanan', views.detaillayanan, name='detaillayanan')
+]

@@ -61,12 +61,26 @@ def indexlayanan(request):
     })
 
 def index(request):
+    data=[]
     allpemesananobj = models.pemesanan.objects.all()
-   
+    for item in allpemesananobj:
+        dummy = []
+        # print(item,'woy')
+        id_pemesanan = item.idpemesanan
+        specificdetail = models.detaillayanan.objects.filter(idpemesanan= id_pemesanan)
+        dummy.append(item)
+        dummy.append(specificdetail)
+        data.append(dummy)
     return render (request, 'pemesanan.html', {
-        'allpemesananobj' : allpemesananobj
+        'pemesanan' : data
     })
-
+def detaillayanan(request,id):
+    detaillayananobj = models.detaillayanan.objects.get(idpemesanan = id)
+    alldetaillayananobj = models.detaillayanan.objects.all()
+    return render(request, 'detaillayanan.html', {
+        'alldetaillayananobj' : detaillayananobj,
+        'detail_layanan' : alldetaillayananobj
+    })
 def indexpaket(request):
     allpaketlayananobj = models.paketlayanan.objects.all()
 
@@ -143,10 +157,3 @@ def bikinlayanan(request):
             idlayanan = getlayanan,
         ).save()
         return redirect ('index')
-
-# def bikinpaket(request):
-#     paket = models.paketlayanan.objects.all()
-#     if request.method == "GET":
-#         return render (request, 'bikinpaket.html',{
-#             'pakettersedia' : paket,
-#         })
