@@ -5,10 +5,16 @@ urlpatterns = [
     path('home', views.home, name = 'home'),
     path('index', views.index, name = 'index'),
     path('createdata', views.createdata, name ='createdata'),
+<<<<<<< HEAD
     path('tampillayanan', views.indexlayanan, name ='tampillayanan'),
-    path('bikinpaket', views.bikinpaket, name ='bikinpaket'),
-    path('hapus/<str:id>', views.hapuslayanan, name="hapuslayanan"),
+    path('hapuslayanan/<str:id>', views.hapuslayanan, name="hapuslayanan"),
+    path('perbaruilayanan/<str:id>', views.perbaruilayanan, name ='perbaruilayanan')
+=======
+    path('bikinlayanan', views.bikinlayanan, name ='bikinlayanan'),
+    path('bikinpaket', views.indexpaket, name ='bikinpaket'),
     path('hapus/<str:id>', views.hapus, name="hapus"),
     path('perbarui/<str:id>', views.perbarui, name ='perbarui'),
-    path('perbaruilayanan/<str:id>', views.perbaruilayanan, name ='perbaruilayanan')
+    path('perbaruipaket/<str:id>', views.perbaruipaket, name='perbaruipaket'),
+    path('hapuspaket/<str:id>', views.hapuspaket, name='hapuspaket')
+>>>>>>> 8db025d96e8f9b77078c2906aa59f8746918d388
 ]   
