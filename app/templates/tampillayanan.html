@@ -13,20 +13,20 @@
         <th>Layanan</th>
         <th>Jenis Layanan</th>
         <th>Harga</th>
+        <th>Action</th>
     </tr>
-    {%for item in layananobj %}
+    {%for item in alllayananobj %}
     <tr>
         <td>{{ item.idlayanan }}</td>
         <td>{{ item.jenislayanan }}</td>
         <td>{{ item.harga }}</td>
-        
-            <a href="{% url 'perbarui' item.idpemesanan %}">
+        <td>
+            <a href="{% url 'perbaruilayanan' item.idlayanan %}">
                 <button>Update</button>
             </a>
-            <a href="{% url 'hapus' item.idpemesanan %}">
+            <a href="{% url 'hapuslayanan' item.idlayanan %}">
                 <button>Delete</button>
             </a>
-            
         </td>
     </tr>
     {% endfor %}

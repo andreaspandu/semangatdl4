@@ -10,7 +10,7 @@ def perbaruilayanan(request, id):
     layanan = models.layanan.objects.all()
     layananobj = models.layanan.objects.get(idlayanan = id)
     if request.method == "GET":
-        return render(request, 'perbaruilayanan.html', {
+        return render(request, 'tampillayanan.html', {
             'alllayanan' : layanan,
             'layananobj' : layananobj
         })
@@ -46,7 +46,14 @@ def hapus(request, id):
 def hapuslayanan(request, id):
     layananobj = models.layanan.objects.get(idlayanan = id)
     layananobj.delete()   
-    return redirect('bikinlayanan') 
+    return redirect('tampillayanan') 
+
+def indexlayanan(request):
+    alllayananobj = models.layanan.objects.all()
+
+    return render(request, 'tampillayanan.html', {
+        'alllayananobj' : alllayananobj
+    })
 
 def index(request):
     allpemesananobj = models.pemesanan.objects.all()
