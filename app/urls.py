@@ -10,5 +10,5 @@ urlpatterns = [
     path('hapus/<str:id>', views.hapuslayanan, name="hapuslayanan"),
     path('hapus/<str:id>', views.hapus, name="hapus"),
     path('perbarui/<str:id>', views.perbarui, name ='perbarui'),
-    path('perbarui/<str:id>', views.perbaruilayanan, name ='perbaruilayanan')
+    path('perbaruilayanan/<str:id>', views.perbaruilayanan, name ='perbaruilayanan')
 ]   

@@ -7,18 +7,20 @@ def home(request):
     return render(request, 'home.html')
 
 def perbaruilayanan(request, id):
-    layanan = models.layanan.objects.all()
     layananobj = models.layanan.objects.get(idlayanan = id)
+    layanan_obj = models.layanan.objects.all()
     if request.method == "GET":
-        return render(request, 'tampillayanan.html', {
-            'alllayanan' : layanan,
-            'layananobj' : layananobj
+        return render(request, 'perbaruilayanan.html', {
+            'alllayananobj' : layananobj,
+            'layananobj' : layanan_obj
         })
     else:
         idlayanan = request.POST['idlayanan']
         getlayanan = models.layanan.objects.get(idlayanan = idlayanan)
+        layananobj.jenislayanan = request.POST['jenislayanan']
         layananobj.harga = request.POST['harga']
-
+        layananobj.save()
+        return redirect ('tampillayanan')
 def perbarui(request, id):  
     pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
     paket_obj = models.paketlayanan.objects.all()
