@@ -7,26 +7,19 @@
     <title>Pemesanan</title>
 </head>
 <body>
-    <h1>Pemesanan</h1>
+    <h1>Layanan</h1>
  <table>
     <tr>
-        <th>ID Pemesanan</th>
-        <th>Paket Pelanggan</th>
         <th>Layanan</th>
-        <th>Nama</th>
-        <th>Plat Nomor</th>
-        <th>Tanggal Pesan</th>
-        <th>Action</th>
+        <th>Jenis Layanan</th>
+        <th>Harga</th>
     </tr>
-    {%for item in allpemesananobj %}
+    {%for item in layananobj %}
     <tr>
-        <td>{{ item.idpemesanan }}</td>
-        <td>{{ item.idpaketpelanggan }}</td>
         <td>{{ item.idlayanan }}</td>
-        <td>{{ item.nama }}</td>
-        <td>{{ item.platnomor }}</td>
-        <td>{{ item.tanggalpesan }}</td>
-        <td>
+        <td>{{ item.jenislayanan }}</td>
+        <td>{{ item.harga }}</td>
+        
             <a href="{% url 'perbarui' item.idpemesanan %}">
                 <button>Update</button>
             </a>

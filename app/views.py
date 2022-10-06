@@ -6,16 +6,32 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'home.html')
 
-def perbarui(request, id):
-    # pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
-    pemesananobj = models.pemesanan.objects.get(idpemesanan=id) #ini harusnya id pemesanan bukan paket pelanggan. terus itu page pas update, ga keluar pilihan paketnya. kamu belum .all() paket pelanggannya
+def perbaruilayanan(request, id):
+    layanan = models.layanan.objects.all()
+    layananobj = models.layanan.objects.get(idlayanan = id)
+    if request.method == "GET":
+        return render(request, 'perbaruilayanan.html', {
+            'alllayanan' : layanan,
+            'layananobj' : layananobj
+        })
+    else:
+        idlayanan = request.POST['idlayanan']
+        getlayanan = models.layanan.objects.get(idlayanan = idlayanan)
+        layananobj.harga = request.POST['harga']
+
+def perbarui(request, id):  
+    pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
+    paket_obj = models.paketlayanan.objects.all()
     if request.method == "GET":
         return render(request, 'perbarui.html', {
-            "allpemesananobj" : pemesananobj
+            "allpemesananobj" : pemesananobj,
+            'paket' : paket_obj
         })
     else:
         # allpemesananobj.idpemesanan = request.POST['idpemesanan']
-        pemesananobj.idpaketpelanggan = request.POST['idpaketpelanggan']
+        idpaketlayanan = request.POST['idpaketpelanggan']
+        getpaketbaru = models.paketlayanan.objects.get(idpaketlayanan= idpaketlayanan)
+        pemesananobj.idpaketpelanggan = getpaketbaru
         pemesananobj.nama = request.POST['nama']
         pemesananobj.platnomor = request.POST['platnomor']
         pemesananobj.tanggalpesan = request.POST['tanggalpesan']
@@ -26,6 +42,11 @@ def hapus(request, id):
     pemesananobj = models.pemesanan.objects.get(idpemesanan = id)
     pemesananobj.delete()   
     return redirect('index') 
+
+def hapuslayanan(request, id):
+    layananobj = models.layanan.objects.get(idlayanan = id)
+    layananobj.delete()   
+    return redirect('bikinlayanan') 
 
 def index(request):
     allpemesananobj = models.pemesanan.objects.all()
@@ -41,7 +62,6 @@ def createdata (request):
         return render (request, 'createdata.html',{
             'pakettersedia' : paket,
             'layanantersedia' : layanan
-
         })
     else:
         # idpemesanan = request.POST['idpemesanan']
@@ -57,9 +77,37 @@ def createdata (request):
         newpemesanan = models.pemesanan(
             # idpemesanan = idpemesanan,
             idpaketpelanggan = getpaketbaru, #harusnya idpaketpelanggan, bukan idpaketlayanan. soalnya di models itu id paket pelanggan. Kalau namain variabel gausa ribet biar ga salah
-            idlayanan = getlayanan,
             nama = nama,
             platnomor = platnomor,
             tanggalpesan = tanggalpesan
         ).save()
+        
+        pemesanan_obj =  models.pemesanan.objects.all().last()
+        newlayanan = models.detaillayanan(
+            idpemesanan = pemesanan_obj,
+            idlayanan = getlayanan,
+        ).save()
         return redirect ('index')
+
+def bikinlayanan(request):
+    layanan = models.layanan.objects.all()
+    if request.method == "GET":
+        return render (request, 'bikinlayanan.html',{
+            'layanantersedia' : layanan
+        })
+    else:
+        idlayanan = request.POST['idlayanan']
+        getlayanan = models.layanan.objects.get(idlayanan = idlayanan)
+        layanan.harga = request.POST['harga']
+
+        newlayanan = models.detaillayanan(
+            idlayanan = getlayanan,
+        ).save()
+        return redirect ('index')
+
+def bikinpaket(request):
+    paket = models.paketlayanan.objects.all()
+    if request.method == "GET":
+        return render (request, 'bikinpaket.html',{
+            'pakettersedia' : paket,
+        })

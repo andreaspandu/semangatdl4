@@ -15,8 +15,8 @@
                 <th>ID Paket Pelanggan</th>
                 <td>
                     <select name="idpaketpelanggan" id="" >
-                        {% for item in pakettersedia %}
-                        <option value="{{allpemesananobj.idpaketlayanan}}">{{item}}</option>
+                        {% for item in paket %}
+                        <option value="{{item.idpaketlayanan}}">{{item.jenispaket}}</option>
                         {% endfor %}
                     </select>
                 </td>
