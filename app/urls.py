@@ -9,11 +9,13 @@ urlpatterns = [
     path('hapuslayanan/<str:id>', views.hapuslayanan, name="hapuslayanan"),
     path('perbaruilayanan/<str:id>', views.perbaruilayanan, name ='perbaruilayanan'),
     path('bikinlayanan', views.bikinlayanan, name ='bikinlayanan'),
-    path('bikinpaket', views.indexpaket, name ='bikinpaket'),
+    path('tambahpaket', views.tambahpaket, name ='tambahpaket'),
+    path('tampilpaket', views.indexpaket, name ='tampilpaket'),
     path('hapus/<str:id>', views.hapus, name="hapus"),
     path('perbarui/<str:id>', views.perbarui, name ='perbarui'),
     path('perbaruipaket/<str:id>', views.perbaruipaket, name='perbaruipaket'),
     path('hapuspaket/<str:id>', views.hapuspaket, name='hapuspaket'),
     path('detaillayanan<str:id>', views.detaillayanan, name='detaillayanan'),
     path('detaillayanan', views.detaillayanan, name='detaillayanan')
+
 ]
