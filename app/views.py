@@ -29,8 +29,8 @@ def updatedetail(request, id):
         return redirect ('index')
 
 def deletedetail(request, id):
-    detaillayananobj = models.layanan.objects.get(idlayanan = id)
-    detaillayananobj.delete()
+    deletedetail = models.detaillayanan.objects.get(iddetaillayanan = id)
+    deletedetail.delete()
     return redirect('index')
 
 def perbaruilayanan(request, id):
