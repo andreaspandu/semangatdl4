@@ -50,7 +50,7 @@ def hapus(request, id):
 def hapuspaket(request, id):
     paketlayananobj = models.paketlayanan.objects.get(idpaketlayanan = id)
     paketlayananobj.delete()
-    return redirect('bikinpaket')
+    return redirect('tampilpaket')
 
 def hapuslayanan(request, id):
     layananobj = models.layanan.objects.get(idlayanan = id)
@@ -93,7 +93,20 @@ def indexpaket(request):
     return render(request, 'tampilpaket.html', {
         'allpaketlayananobj' : allpaketlayananobj
     })
+def tambahlayanan(request):
+    tambahlayanan = models.layanan.objects.all()
+    if request.method == "GET":
+        return render(request, 'tambahlayanan.html', {
+        })
+    else:
+        jenislayanan = request.POST['jenislayanan']
+        harga = request.POST['harga']
 
+        newlayanan = models.layanan(
+            jenislayanan = jenislayanan,
+            harga = harga
+        ).save()
+        return redirect('tampillayanan')
 def perbaruipaket(request, id):
     paketlayananobj = models.paketlayanan.objects.get(idpaketlayanan=id)
     paket_obj = models.paketlayanan.objects.all()
@@ -115,22 +128,21 @@ def perbaruipaket(request, id):
         return redirect ('bikinpaket')
 
 def tambahpaket(request):
-    paket = models.paketlayanan.objects.all()
+    tambahpaket = models.paketlayanan.objects.all()
     if request.method == "GET":
         return render(request, 'tambahpaket.html', {
-           'pakettersedia' : paket, 
         })
     else:
-        idpaketlayanan = request.POST['idpaketlayanan']
-        getpaketlayanan = models.paketlayanan.objects.get(idpaketlayanan = idpaketlayanan)
-        paket.jenispaket = request.POST['jenispaket']
-        paket.keteranganpaket = request.POST['keteranganpaket']
-        paket.harga = request.POST['jenispaket']
+        jenispaket = request.POST['jenispaket']
+        keteranganpaket = request.POST['keteranganpaket']
+        harga = request.POST['harga']
 
         newpaket = models.paketlayanan(
-            paket = getpaketlayanan,
+            jenispaket = jenispaket,
+            keteranganpaket = keteranganpaket,
+            harga = harga
         ).save()
-        return redirect('bikinlayanan.html')
+        return redirect('tampilpaket')
 
 def createdata (request):
     paket = models.paketlayanan.objects.all()
@@ -175,10 +187,14 @@ def bikinlayanan(request):
     else:
         idlayanan = request.POST['idlayanan']
         getlayanan = models.layanan.objects.get(idlayanan = idlayanan)
-        layanan.harga = request.POST['harga']
+        harga = request.POST['harga']
+        jenislayanan = request.POST['jenislayanan']
+
 
         newlayanan = models.detaillayanan(
             idlayanan = getlayanan,
+            harga = harga,
+            jenislayanan = jenislayanan
         ).save()
         return redirect ('index')
 # bikinlayanan masih bingung di idlayanan pas input itu masukin idnya ngambil dari mana, bikin baru kah atau gimana kah

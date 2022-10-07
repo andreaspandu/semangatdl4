@@ -12,19 +12,9 @@
         {% csrf_token %}
         <table>
             <tr>
-                <th>ID Layanan</th>
-                <td>
-                    <select name="idlayanan" id="" >
-                        {% for item in layanantersedia %}
-                        <option value="{{item.idlayanan}}">{{item.jenislayanan}}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
                 <th>Jenis Layanan</th>
                 <td>
-                    <input type="text" name="jenislayanan">
+                    <input type="jenislayanan" name="jenislayanan">
                 </td>
             </tr>
             <tr>
