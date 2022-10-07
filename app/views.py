@@ -9,27 +9,31 @@ def home(request):
     return render(request, 'home.html')
 
 def updatedetail(request, id):
-    updatedetailobj = models.detaillayanan.objects.get(iddetaillayanan= id)
-    print(updatedetailobj,'woy')
-    layananobj = models.layanan.objects.all()
+    detail_obj = models.layanan.objects.filter(idlayanan= id)
+    detail = models.detaillayanan.objects.get(idpemesanan=id)
+    # dee = models.pemesanan.objects.get(idpemesanan= id)
+    # detailobj = models.detaillayanan.objects.get(idlayanan_id=id)
+    updatedetail_obj = models.layanan.objects.all()
     if request.method == "GET":
         return render(request, 'updatedetail.html', {
-            'updatedetailobj' : updatedetailobj,
-            'layananobj' : layananobj
+            'allupdatedetailobj' : detail_obj,
+            'updatedetail' : updatedetail_obj,
+            'detailobj' : detail
         } )
     else:
-        idlayanan = request.POST['idlayanan']
-        getdetail = models.layanan.objects.get(idlayanan=idlayanan)
-        updatedetailobj.idlayanan = getdetail
-        updatedetailobj.save()
-        # updatedetailobj.idlayanan = getdetail
-        # getdetail = models.layanan.objects.get(idlayanan=idlayanan)
-        # updatedetailobj.save()
-        # detail.sae
-        # idlayanan.save()
-        # newdetail = models.layanan(
-        #     idlayanan = idlayanan).save()
-        return redirect ('detaillayanan')
+        # jenislayanan = request.POST['idlayanan']
+        detail.idlayanan.jenislayanan = request.POST['idlayanan']
+        detail.save()
+        # getlayanan = models.layanan.objects.get(idlayanan = jenislayanan)
+        # # newdeta = models.detaillayanan(
+        # #     idlayanan = getlayanan ).save()
+        # detail.idlayanan.save()
+        return redirect ('index')
+
+def deletedetail(request, id):
+    detaillayananobj = models.layanan.objects.get(idlayanan = id)
+    detaillayananobj.delete()
+    return redirect('index')
 
 def perbaruilayanan(request, id):
     layananobj = models.layanan.objects.get(idlayanan = id)
@@ -68,7 +72,6 @@ def adddetaillayanan(request):
         ).save()
             
         return redirect ('index')
-
         
 def perbarui(request, id):  
     pemesananobj = models.pemesanan.objects.get(idpemesanan=id)

@@ -22,10 +22,9 @@
                 <td>{{ item.idlayanan.jenislayanan }}</td>
                 <td>{{ item.idpemesanan.idpaketpelanggan.jenispaket }}</td>
             
-                <td>   <a href="{% url 'updatedetail' item.iddetaillayanan %}">
+                <td>   <a href="{% url 'updatedetail' item.idpemesanan %}">
                     <button>Update Detail Layanan</button>
                 </a>
-
             </td>
             {% endfor %}
         </tr>
