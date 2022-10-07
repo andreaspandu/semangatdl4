@@ -9,25 +9,23 @@ def home(request):
     return render(request, 'home.html')
 
 def updatedetail(request, id):
-    detail_obj = models.layanan.objects.filter(idlayanan= id)
-    detail = models.detaillayanan.objects.get(idpemesanan=id)
+    detail = models.detaillayanan.objects.get(iddetaillayanan=id)
+    print(detail)
     # dee = models.pemesanan.objects.get(idpemesanan= id)
     # detailobj = models.detaillayanan.objects.get(idlayanan_id=id)
     updatedetail_obj = models.layanan.objects.all()
     if request.method == "GET":
         return render(request, 'updatedetail.html', {
-            'allupdatedetailobj' : detail_obj,
             'updatedetail' : updatedetail_obj,
             'detailobj' : detail
         } )
     else:
         # jenislayanan = request.POST['idlayanan']
-        detail.idlayanan.jenislayanan = request.POST['idlayanan']
+        idlayanan = request.POST['idlayanan']
+        getobjeklayanan = models.layanan.objects.get(idlayanan=idlayanan)
+        detail.idlayanan = getobjeklayanan
+
         detail.save()
-        # getlayanan = models.layanan.objects.get(idlayanan = jenislayanan)
-        # # newdeta = models.detaillayanan(
-        # #     idlayanan = getlayanan ).save()
-        # detail.idlayanan.save()
         return redirect ('index')
 
 def deletedetail(request, id):
