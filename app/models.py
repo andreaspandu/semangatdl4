@@ -26,7 +26,7 @@ class pemesanan(models.Model):
     tanggalpesan = models.DateField()
 
     def __str__(self):
-        return str(self.tanggalpesan)
+        return str(self.idpemesanan)
 
 class detaillayanan(models.Model):
     iddetaillayanan = models.AutoField(primary_key=True)

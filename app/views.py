@@ -1,4 +1,5 @@
 from ast import Return
+from encodings.utf_8_sig import IncrementalDecoder
 from django.shortcuts import render, redirect
 from . import models
 from django.http import HttpResponse
@@ -6,6 +7,29 @@ from django.http import HttpResponse
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
+
+def updatedetail(request, id):
+    updatedetailobj = models.detaillayanan.objects.get(iddetaillayanan= id)
+    print(updatedetailobj,'woy')
+    layananobj = models.layanan.objects.all()
+    if request.method == "GET":
+        return render(request, 'updatedetail.html', {
+            'updatedetailobj' : updatedetailobj,
+            'layananobj' : layananobj
+        } )
+    else:
+        idlayanan = request.POST['idlayanan']
+        getdetail = models.layanan.objects.get(idlayanan=idlayanan)
+        updatedetailobj.idlayanan = getdetail
+        updatedetailobj.save()
+        # updatedetailobj.idlayanan = getdetail
+        # getdetail = models.layanan.objects.get(idlayanan=idlayanan)
+        # updatedetailobj.save()
+        # detail.sae
+        # idlayanan.save()
+        # newdetail = models.layanan(
+        #     idlayanan = idlayanan).save()
+        return redirect ('detaillayanan')
 
 def perbaruilayanan(request, id):
     layananobj = models.layanan.objects.get(idlayanan = id)
@@ -16,13 +40,36 @@ def perbaruilayanan(request, id):
             'layananobj' : layanan_obj
         })
     else:
-        idlayanan = request.POST['idlayanan']
-        getlayanan = models.layanan.objects.get(idlayanan = idlayanan)
+        # idlayanan = request.POST['idlayanan']
+        # getlayanan = models.layanan.objects.get(idlayanan = idlayanan)
         layananobj.jenislayanan = request.POST['jenislayanan']
         layananobj.harga = request.POST['harga']
         layananobj.save()
         return redirect ('tampillayanan')
 
+def adddetaillayanan(request):
+    detaillayananobj = models.layanan.objects.all()
+    pemesananobj = models.pemesanan.objects.all()
+    if request.method == "GET":
+        return render(request, 'adddetaillayanan.html', {
+            'detail' : detaillayananobj,  
+            'pemesanan' : pemesananobj
+        })
+    else:
+        idpemesanan = request.POST['idpemesanan']
+        jenislayanan = request.POST['idlayanan']
+        getlayanan = models.layanan.objects.get(idlayanan = jenislayanan)
+        getpemesanan = models.pemesanan.objects.get(idpemesanan = idpemesanan)
+        # getid = models.detaillayanan.objects.get(idlayanan = idlayanan)
+        # pemesanan_obj =  models.pemesanan.objects.all().last()
+        newdetail = models.detaillayanan(
+            idpemesanan = getpemesanan,
+            idlayanan = getlayanan
+        ).save()
+            
+        return redirect ('index')
+
+        
 def perbarui(request, id):  
     pemesananobj = models.pemesanan.objects.get(idpemesanan=id)
     paket_obj = models.paketlayanan.objects.all()
@@ -80,11 +127,11 @@ def index(request):
     })
 
 def detaillayanan(request,id):
-    detaillayananobj = models.detaillayanan.objects.get(idpemesanan = id)
+    detaillayananobj = models.detaillayanan.objects.filter(idpemesanan = id)
     alldetaillayananobj = models.detaillayanan.objects.all()
     return render(request, 'detaillayanan.html', {
         'alldetaillayananobj' : detaillayananobj,
-        'detail_layanan' : alldetaillayananobj
+        'detail_layanan' : detaillayananobj
     })
 
 def indexpaket(request):
@@ -120,12 +167,12 @@ def perbaruipaket(request, id):
         # idpaketlayanan = request.POST['idpaketlayanan']
         # getpaketbaru = models.paketlayanan.objects.get(idpaketlayanan= idpaketlayanan)
         # pemesananobj.idpaketpelanggan = getpaketbaru
-        paketlayananobj.idpaketlayanan = request.POST['idpaketlayanan']
+        # paketlayananobj.idpaketlayanan = request.POST['idpaketlayanan']
         paketlayananobj.jenispaket = request.POST['jenispaket']
         paketlayananobj.keteranganpaket = request.POST['keteranganpaket']
         paketlayananobj.harga = request.POST['harga']
         paketlayananobj.save()
-        return redirect ('bikinpaket')
+        return redirect ('tampilpaket')
 
 def tambahpaket(request):
     tambahpaket = models.paketlayanan.objects.all()

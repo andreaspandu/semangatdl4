@@ -11,31 +11,25 @@
     <table>
             <tr>
                 <th>ID Pemesanan</th>
+                <th>ID Detail Layanan</th>
                 <th>Jenis Layanan</th>
                 <th>Jenis Paket Pelanggan</th>
             </tr>
             {% for item in detail_layanan %}
             <tr>
-                <td>{{ alldetaillayananobj.idpemesanan }}</td>
-                <td>{{ alldetaillayananobj.idlayanan.jenislayanan }}</td>
-                <td>{{ alldetaillayananobj.idpemesanan.idpaketpelanggan.jenispaket }}</td>
+                <td>{{ item.idpemesanan_id }}</td>
+                <td>{{ item.iddetaillayanan }}</td>
+                <td>{{ item.idlayanan.jenislayanan }}</td>
+                <td>{{ item.idpemesanan.idpaketpelanggan.jenispaket }}</td>
+            
+                <td>   <a href="{% url 'updatedetail' item.iddetaillayanan %}">
+                    <button>Update Detail Layanan</button>
+                </a>
+
+            </td>
             {% endfor %}
-            </tr>
-                    <!-- {{item.0.idpemesanan}}
-                </td>
-            </tr>
-            <tr>
-                <th>ID Pemesanan</th>
-                <td>
-                    {{alldetaillayananobj.idpemesanan}}>
-                </td>
-            </tr>
-            <tr>
-                <th>ID Layanan</th>
-                <td>
-                    {{alldetaillayananobj.idlayanan}}
-                </td>
-            </tr> -->
+        </tr>
+         
     </table>
 </body>
 </html>

@@ -7,12 +7,12 @@
     <title>Perbarui Data</title>
 </head>
 <body>
-    <h1>Tambah Pemesanan</h1>
+    <h1>Update Pemesanan</h1>
     <form action="" method="post">
         {% csrf_token %}
         <table>
             <tr>
-                <th>ID Paket Pelanggan</th>
+                <th>Paket Pelanggan</th>
                 <td>
                     <select name="idpaketpelanggan" id="" >
                         {% for item in paket %}
